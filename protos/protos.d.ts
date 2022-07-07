@@ -330,140 +330,140 @@ export namespace google {
                 namespace BareMetalSolution {
 
                     /**
-                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution|listInstances}.
+                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution#listInstances}.
                      * @param error Error, if any
                      * @param [response] ListInstancesResponse
                      */
                     type ListInstancesCallback = (error: (Error|null), response?: google.cloud.baremetalsolution.v2.ListInstancesResponse) => void;
 
                     /**
-                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution|getInstance}.
+                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution#getInstance}.
                      * @param error Error, if any
                      * @param [response] Instance
                      */
                     type GetInstanceCallback = (error: (Error|null), response?: google.cloud.baremetalsolution.v2.Instance) => void;
 
                     /**
-                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution|updateInstance}.
+                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution#updateInstance}.
                      * @param error Error, if any
                      * @param [response] Operation
                      */
                     type UpdateInstanceCallback = (error: (Error|null), response?: google.longrunning.Operation) => void;
 
                     /**
-                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution|resetInstance}.
+                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution#resetInstance}.
                      * @param error Error, if any
                      * @param [response] Operation
                      */
                     type ResetInstanceCallback = (error: (Error|null), response?: google.longrunning.Operation) => void;
 
                     /**
-                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution|startInstance}.
+                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution#startInstance}.
                      * @param error Error, if any
                      * @param [response] Operation
                      */
                     type StartInstanceCallback = (error: (Error|null), response?: google.longrunning.Operation) => void;
 
                     /**
-                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution|stopInstance}.
+                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution#stopInstance}.
                      * @param error Error, if any
                      * @param [response] Operation
                      */
                     type StopInstanceCallback = (error: (Error|null), response?: google.longrunning.Operation) => void;
 
                     /**
-                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution|detachLun}.
+                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution#detachLun}.
                      * @param error Error, if any
                      * @param [response] Operation
                      */
                     type DetachLunCallback = (error: (Error|null), response?: google.longrunning.Operation) => void;
 
                     /**
-                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution|listVolumes}.
+                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution#listVolumes}.
                      * @param error Error, if any
                      * @param [response] ListVolumesResponse
                      */
                     type ListVolumesCallback = (error: (Error|null), response?: google.cloud.baremetalsolution.v2.ListVolumesResponse) => void;
 
                     /**
-                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution|getVolume}.
+                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution#getVolume}.
                      * @param error Error, if any
                      * @param [response] Volume
                      */
                     type GetVolumeCallback = (error: (Error|null), response?: google.cloud.baremetalsolution.v2.Volume) => void;
 
                     /**
-                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution|updateVolume}.
+                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution#updateVolume}.
                      * @param error Error, if any
                      * @param [response] Operation
                      */
                     type UpdateVolumeCallback = (error: (Error|null), response?: google.longrunning.Operation) => void;
 
                     /**
-                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution|resizeVolume}.
+                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution#resizeVolume}.
                      * @param error Error, if any
                      * @param [response] Operation
                      */
                     type ResizeVolumeCallback = (error: (Error|null), response?: google.longrunning.Operation) => void;
 
                     /**
-                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution|listNetworks}.
+                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution#listNetworks}.
                      * @param error Error, if any
                      * @param [response] ListNetworksResponse
                      */
                     type ListNetworksCallback = (error: (Error|null), response?: google.cloud.baremetalsolution.v2.ListNetworksResponse) => void;
 
                     /**
-                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution|listNetworkUsage}.
+                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution#listNetworkUsage}.
                      * @param error Error, if any
                      * @param [response] ListNetworkUsageResponse
                      */
                     type ListNetworkUsageCallback = (error: (Error|null), response?: google.cloud.baremetalsolution.v2.ListNetworkUsageResponse) => void;
 
                     /**
-                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution|getNetwork}.
+                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution#getNetwork}.
                      * @param error Error, if any
                      * @param [response] Network
                      */
                     type GetNetworkCallback = (error: (Error|null), response?: google.cloud.baremetalsolution.v2.Network) => void;
 
                     /**
-                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution|updateNetwork}.
+                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution#updateNetwork}.
                      * @param error Error, if any
                      * @param [response] Operation
                      */
                     type UpdateNetworkCallback = (error: (Error|null), response?: google.longrunning.Operation) => void;
 
                     /**
-                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution|getLun}.
+                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution#getLun}.
                      * @param error Error, if any
                      * @param [response] Lun
                      */
                     type GetLunCallback = (error: (Error|null), response?: google.cloud.baremetalsolution.v2.Lun) => void;
 
                     /**
-                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution|listLuns}.
+                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution#listLuns}.
                      * @param error Error, if any
                      * @param [response] ListLunsResponse
                      */
                     type ListLunsCallback = (error: (Error|null), response?: google.cloud.baremetalsolution.v2.ListLunsResponse) => void;
 
                     /**
-                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution|getNfsShare}.
+                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution#getNfsShare}.
                      * @param error Error, if any
                      * @param [response] NfsShare
                      */
                     type GetNfsShareCallback = (error: (Error|null), response?: google.cloud.baremetalsolution.v2.NfsShare) => void;
 
                     /**
-                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution|listNfsShares}.
+                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution#listNfsShares}.
                      * @param error Error, if any
                      * @param [response] ListNfsSharesResponse
                      */
                     type ListNfsSharesCallback = (error: (Error|null), response?: google.cloud.baremetalsolution.v2.ListNfsSharesResponse) => void;
 
                     /**
-                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution|updateNfsShare}.
+                     * Callback as used by {@link google.cloud.baremetalsolution.v2.BareMetalSolution#updateNfsShare}.
                      * @param error Error, if any
                      * @param [response] Operation
                      */
@@ -7853,9 +7853,6 @@ export namespace google {
             /** FieldOptions lazy */
             lazy?: (boolean|null);
 
-            /** FieldOptions unverifiedLazy */
-            unverifiedLazy?: (boolean|null);
-
             /** FieldOptions deprecated */
             deprecated?: (boolean|null);
 
@@ -7892,9 +7889,6 @@ export namespace google {
 
             /** FieldOptions lazy. */
             public lazy: boolean;
-
-            /** FieldOptions unverifiedLazy. */
-            public unverifiedLazy: boolean;
 
             /** FieldOptions deprecated. */
             public deprecated: boolean;
@@ -9697,35 +9691,35 @@ export namespace google {
         namespace Operations {
 
             /**
-             * Callback as used by {@link google.longrunning.Operations|listOperations}.
+             * Callback as used by {@link google.longrunning.Operations#listOperations}.
              * @param error Error, if any
              * @param [response] ListOperationsResponse
              */
             type ListOperationsCallback = (error: (Error|null), response?: google.longrunning.ListOperationsResponse) => void;
 
             /**
-             * Callback as used by {@link google.longrunning.Operations|getOperation}.
+             * Callback as used by {@link google.longrunning.Operations#getOperation}.
              * @param error Error, if any
              * @param [response] Operation
              */
             type GetOperationCallback = (error: (Error|null), response?: google.longrunning.Operation) => void;
 
             /**
-             * Callback as used by {@link google.longrunning.Operations|deleteOperation}.
+             * Callback as used by {@link google.longrunning.Operations#deleteOperation}.
              * @param error Error, if any
              * @param [response] Empty
              */
             type DeleteOperationCallback = (error: (Error|null), response?: google.protobuf.Empty) => void;
 
             /**
-             * Callback as used by {@link google.longrunning.Operations|cancelOperation}.
+             * Callback as used by {@link google.longrunning.Operations#cancelOperation}.
              * @param error Error, if any
              * @param [response] Empty
              */
             type CancelOperationCallback = (error: (Error|null), response?: google.protobuf.Empty) => void;
 
             /**
-             * Callback as used by {@link google.longrunning.Operations|waitOperation}.
+             * Callback as used by {@link google.longrunning.Operations#waitOperation}.
              * @param error Error, if any
              * @param [response] Operation
              */
