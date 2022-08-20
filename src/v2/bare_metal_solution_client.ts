@@ -23,6 +23,7 @@ import {
   CallOptions,
   Descriptors,
   ClientOptions,
+  GrpcClientOptions,
   LROperation,
   PaginationCallback,
   GaxCall,
@@ -33,7 +34,6 @@ import {
 } from 'google-gax';
 
 import {Transform} from 'stream';
-import {RequestType} from 'google-gax/build/src/apitypes';
 import * as protos from '../../protos/protos';
 import jsonProtos = require('../../protos/protos.json');
 /**
@@ -85,7 +85,7 @@ export class BareMetalSolutionClient {
    *
    * @param {object} [options] - The configuration object.
    * The options accepted by the constructor are described in detail
-   * in [this document](https://github.com/googleapis/gax-nodejs/blob/master/client-libraries.md#creating-the-client-instance).
+   * in [this document](https://github.com/googleapis/gax-nodejs/blob/main/client-libraries.md#creating-the-client-instance).
    * The common options are:
    * @param {object} [options.credentials] - Credentials object.
    * @param {string} [options.credentials.client_email]
@@ -108,11 +108,10 @@ export class BareMetalSolutionClient {
    *     API remote host.
    * @param {gax.ClientConfig} [options.clientConfig] - Client configuration override.
    *     Follows the structure of {@link gapicConfig}.
-   * @param {boolean} [options.fallback] - Use HTTP fallback mode.
-   *     In fallback mode, a special browser-compatible transport implementation is used
-   *     instead of gRPC transport. In browser context (if the `window` object is defined)
-   *     the fallback mode is enabled automatically; set `options.fallback` to `false`
-   *     if you need to override this behavior.
+   * @param {boolean | "rest"} [options.fallback] - Use HTTP fallback mode.
+   *     Pass "rest" to use HTTP/1.1 REST API instead of gRPC.
+   *     For more information, please check the
+   *     {@link https://github.com/googleapis/gax-nodejs/blob/main/client-libraries.md#http11-rest-api-mode documentation}.
    */
   constructor(opts?: ClientOptions) {
     // Ensure that options include all the required fields.
@@ -234,16 +233,28 @@ export class BareMetalSolutionClient {
     };
 
     const protoFilesRoot = this._gaxModule.protobuf.Root.fromJSON(jsonProtos);
-
     // This API contains "long-running operations", which return a
     // an Operation object that allows for tracking of the operation,
     // rather than holding a request open.
-
+    const lroOptions: GrpcClientOptions = {
+      auth: this.auth,
+      grpc: 'grpc' in this._gaxGrpc ? this._gaxGrpc.grpc : undefined,
+    };
+    if (opts.fallback === 'rest') {
+      lroOptions.protoJson = protoFilesRoot;
+      lroOptions.httpRules = [
+        {
+          selector: 'google.cloud.location.Locations.GetLocation',
+          get: '/v2/{name=projects/*/locations/*}',
+        },
+        {
+          selector: 'google.cloud.location.Locations.ListLocations',
+          get: '/v2/{name=projects/*}/locations',
+        },
+      ];
+    }
     this.operationsClient = this._gaxModule
-      .lro({
-        auth: this.auth,
-        grpc: 'grpc' in this._gaxGrpc ? this._gaxGrpc.grpc : undefined,
-      })
+      .lro(lroOptions)
       .operationsClient(opts);
     const updateInstanceResponse = protoFilesRoot.lookup(
       '.google.cloud.baremetalsolution.v2.Instance'
@@ -442,7 +453,8 @@ export class BareMetalSolutionClient {
       const apiCall = this._gaxModule.createApiCall(
         callPromise,
         this._defaults[methodName],
-        descriptor
+        descriptor,
+        this._opts.fallback
       );
 
       this.innerApiCalls[methodName] = apiCall;
@@ -1197,7 +1209,7 @@ export class BareMetalSolutionClient {
     const decodeOperation = new gax.Operation(
       operation,
       this.descriptors.longrunning.updateInstance,
-      gax.createDefaultBackoffSettings()
+      this._gaxModule.createDefaultBackoffSettings()
     );
     return decodeOperation as LROperation<
       protos.google.cloud.baremetalsolution.v2.Instance,
@@ -1335,7 +1347,7 @@ export class BareMetalSolutionClient {
     const decodeOperation = new gax.Operation(
       operation,
       this.descriptors.longrunning.resetInstance,
-      gax.createDefaultBackoffSettings()
+      this._gaxModule.createDefaultBackoffSettings()
     );
     return decodeOperation as LROperation<
       protos.google.cloud.baremetalsolution.v2.ResetInstanceResponse,
@@ -1472,7 +1484,7 @@ export class BareMetalSolutionClient {
     const decodeOperation = new gax.Operation(
       operation,
       this.descriptors.longrunning.startInstance,
-      gax.createDefaultBackoffSettings()
+      this._gaxModule.createDefaultBackoffSettings()
     );
     return decodeOperation as LROperation<
       protos.google.cloud.baremetalsolution.v2.StartInstanceResponse,
@@ -1609,7 +1621,7 @@ export class BareMetalSolutionClient {
     const decodeOperation = new gax.Operation(
       operation,
       this.descriptors.longrunning.stopInstance,
-      gax.createDefaultBackoffSettings()
+      this._gaxModule.createDefaultBackoffSettings()
     );
     return decodeOperation as LROperation<
       protos.google.cloud.baremetalsolution.v2.StopInstanceResponse,
@@ -1748,7 +1760,7 @@ export class BareMetalSolutionClient {
     const decodeOperation = new gax.Operation(
       operation,
       this.descriptors.longrunning.detachLun,
-      gax.createDefaultBackoffSettings()
+      this._gaxModule.createDefaultBackoffSettings()
     );
     return decodeOperation as LROperation<
       protos.google.cloud.baremetalsolution.v2.Instance,
@@ -1896,7 +1908,7 @@ export class BareMetalSolutionClient {
     const decodeOperation = new gax.Operation(
       operation,
       this.descriptors.longrunning.updateVolume,
-      gax.createDefaultBackoffSettings()
+      this._gaxModule.createDefaultBackoffSettings()
     );
     return decodeOperation as LROperation<
       protos.google.cloud.baremetalsolution.v2.Volume,
@@ -2035,7 +2047,7 @@ export class BareMetalSolutionClient {
     const decodeOperation = new gax.Operation(
       operation,
       this.descriptors.longrunning.resizeVolume,
-      gax.createDefaultBackoffSettings()
+      this._gaxModule.createDefaultBackoffSettings()
     );
     return decodeOperation as LROperation<
       protos.google.cloud.baremetalsolution.v2.Volume,
@@ -2179,7 +2191,7 @@ export class BareMetalSolutionClient {
     const decodeOperation = new gax.Operation(
       operation,
       this.descriptors.longrunning.updateNetwork,
-      gax.createDefaultBackoffSettings()
+      this._gaxModule.createDefaultBackoffSettings()
     );
     return decodeOperation as LROperation<
       protos.google.cloud.baremetalsolution.v2.Network,
@@ -2323,7 +2335,7 @@ export class BareMetalSolutionClient {
     const decodeOperation = new gax.Operation(
       operation,
       this.descriptors.longrunning.updateNfsShare,
-      gax.createDefaultBackoffSettings()
+      this._gaxModule.createDefaultBackoffSettings()
     );
     return decodeOperation as LROperation<
       protos.google.cloud.baremetalsolution.v2.NfsShare,
@@ -2473,7 +2485,7 @@ export class BareMetalSolutionClient {
     const callSettings = defaultCallSettings.merge(options);
     this.initialize();
     return this.descriptors.page.listInstances.createStream(
-      this.innerApiCalls.listInstances as gax.GaxCall,
+      this.innerApiCalls.listInstances as GaxCall,
       request,
       callSettings
     );
@@ -2524,7 +2536,7 @@ export class BareMetalSolutionClient {
     this.initialize();
     return this.descriptors.page.listInstances.asyncIterate(
       this.innerApiCalls['listInstances'] as GaxCall,
-      request as unknown as RequestType,
+      request as {},
       callSettings
     ) as AsyncIterable<protos.google.cloud.baremetalsolution.v2.IInstance>;
   }
@@ -2671,7 +2683,7 @@ export class BareMetalSolutionClient {
     const callSettings = defaultCallSettings.merge(options);
     this.initialize();
     return this.descriptors.page.listVolumes.createStream(
-      this.innerApiCalls.listVolumes as gax.GaxCall,
+      this.innerApiCalls.listVolumes as GaxCall,
       request,
       callSettings
     );
@@ -2722,7 +2734,7 @@ export class BareMetalSolutionClient {
     this.initialize();
     return this.descriptors.page.listVolumes.asyncIterate(
       this.innerApiCalls['listVolumes'] as GaxCall,
-      request as unknown as RequestType,
+      request as {},
       callSettings
     ) as AsyncIterable<protos.google.cloud.baremetalsolution.v2.IVolume>;
   }
@@ -2869,7 +2881,7 @@ export class BareMetalSolutionClient {
     const callSettings = defaultCallSettings.merge(options);
     this.initialize();
     return this.descriptors.page.listNetworks.createStream(
-      this.innerApiCalls.listNetworks as gax.GaxCall,
+      this.innerApiCalls.listNetworks as GaxCall,
       request,
       callSettings
     );
@@ -2920,7 +2932,7 @@ export class BareMetalSolutionClient {
     this.initialize();
     return this.descriptors.page.listNetworks.asyncIterate(
       this.innerApiCalls['listNetworks'] as GaxCall,
-      request as unknown as RequestType,
+      request as {},
       callSettings
     ) as AsyncIterable<protos.google.cloud.baremetalsolution.v2.INetwork>;
   }
@@ -3063,7 +3075,7 @@ export class BareMetalSolutionClient {
     const callSettings = defaultCallSettings.merge(options);
     this.initialize();
     return this.descriptors.page.listLuns.createStream(
-      this.innerApiCalls.listLuns as gax.GaxCall,
+      this.innerApiCalls.listLuns as GaxCall,
       request,
       callSettings
     );
@@ -3112,7 +3124,7 @@ export class BareMetalSolutionClient {
     this.initialize();
     return this.descriptors.page.listLuns.asyncIterate(
       this.innerApiCalls['listLuns'] as GaxCall,
-      request as unknown as RequestType,
+      request as {},
       callSettings
     ) as AsyncIterable<protos.google.cloud.baremetalsolution.v2.ILun>;
   }
@@ -3259,7 +3271,7 @@ export class BareMetalSolutionClient {
     const callSettings = defaultCallSettings.merge(options);
     this.initialize();
     return this.descriptors.page.listNfsShares.createStream(
-      this.innerApiCalls.listNfsShares as gax.GaxCall,
+      this.innerApiCalls.listNfsShares as GaxCall,
       request,
       callSettings
     );
@@ -3310,7 +3322,7 @@ export class BareMetalSolutionClient {
     this.initialize();
     return this.descriptors.page.listNfsShares.asyncIterate(
       this.innerApiCalls['listNfsShares'] as GaxCall,
-      request as unknown as RequestType,
+      request as {},
       callSettings
     ) as AsyncIterable<protos.google.cloud.baremetalsolution.v2.INfsShare>;
   }
